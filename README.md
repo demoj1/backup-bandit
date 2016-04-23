@@ -1,6 +1,13 @@
 ## Пример файла конфигурации
 ---
 ```yaml
+email_settings:
+  login: secret_email@yandex.ru
+  password: "*********"
+email_list:
+  - dmitryd.prog@gmail.com
+  - example2@mail.ru
+  - ...
 paths:
   -
     path: "%[y]/%[m]/%[-1d]/secret_path"
@@ -38,6 +45,7 @@ paths:
 tools:
   -
     path: /usr/bin/discus
+    args: -c
     groups:
       - mount
       - total
@@ -52,15 +60,15 @@ tools:
         (?P<avail>\d+[.]?\d* \w+[B])\s+
         (?P<prcnt>\d+[.]?\d*%)\s+
         (?P<graph>\[.*\])
-```
-Вывод discus
-```
-Mount           Total         Used         Avail      Prcnt      Graph
-/run            767.7 MB      76.9 MB     690.8 MB    10.0%   [*---------]
-/              109.17 GB      8.75 GB    100.43 GB     8.0%   [*---------]
-+l/security         0 KB         0 KB         0 KB     0.0%   [----------]
-/dev/shm         3.75 GB      98.8 MB      3.65 GB     2.6%   [----------]
-/run/lock         5.0 MB         4 KB       5.0 MB     0.1%   [----------]
-+/fs/cgroup      3.75 GB         0 KB      3.75 GB     0.0%   [----------]
-
+  -
+    path: /usr/bin/uptime
+    groups:
+      - up
+      - users
+      - avr
+    regex: >-
+        up
+        (?P<up>.*),\s*
+        (?P<users>\d+) users,\s*load average:
+        (?P<avr>.*\d)
 ```
