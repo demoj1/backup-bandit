@@ -60,7 +60,6 @@ func InitSet(path string) {
 	}
 
 	Set = normalizeSetting(set)
-	log.Println(set)
 }
 
 func normalizeSetting(filesPaths settings) []PathVerifyInfo {
