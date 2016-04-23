@@ -1,0 +1,29 @@
+tools:
+  -
+    path: /usr/bin/discus
+    args: -c
+    groups:
+      - mount
+      - total
+      - used
+      - avail
+      - prcnt
+      - graph
+    regex: >-
+        (?P<mount>\/.*?)\s+
+        (?P<total>\d+[.]?\d* \w+[B])\s+
+        (?P<used>\d+[.]?\d* \w+[B])\s+
+        (?P<avail>\d+[.]?\d* \w+[B])\s+
+        (?P<prcnt>\d+[.]?\d*%)\s+
+        (?P<graph>\[.*\])
+  -
+    path: /usr/bin/uptime
+    groups:
+      - up
+      - users
+      - avr
+    regex: >-
+        up
+        (?P<up>.*),\s*
+        (?P<users>\d+) users,\s*load average:
+        (?P<avr>.*\d)
