@@ -72,3 +72,5 @@ tools:
         (?P<users>\d+) users,\s*load average:
         (?P<avr>.*\d)
 ```
+## Сообщение на почту
+![Сообщение](http://storage1.static.itmages.ru/i/16/0423/h_1461432682_2094362_119a6cf381.png)
