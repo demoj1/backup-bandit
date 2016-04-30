@@ -29,4 +29,5 @@ tools:
         (?P<avr>.*\d)
   -
     path: /usr/bin/find
+    wait_time: 5000
     args: /home/dmr/ -name "del_*" -delete
