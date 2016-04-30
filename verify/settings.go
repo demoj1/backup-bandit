@@ -24,8 +24,10 @@ type path struct {
 }
 
 type emailSettings struct {
-	Login    string
-	Password string
+	Login      string
+	Password   string
+	SMTPServer string `yaml:"smtp_server"`
+	SMTPPort   int    `yaml:"smtp_port"`
 }
 
 type emailList []string
