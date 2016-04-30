@@ -18,11 +18,6 @@ import (
 	tpl "github.com/diman3241/backupbandit/template"
 )
 
-const (
-	smtpServer string = "smtp.yandex.ru"
-	smtpPort   int    = 465
-)
-
 func CreateHtmlReport() {
 	tpl, err := template.New("report").Parse(tpl.Report)
 	if err != nil {
@@ -94,8 +89,8 @@ func sendEmail(msg []byte, to []string, title string) {
 	m.SetBody("text/html", string(msg))
 
 	d := gomail.NewDialer(
-		smtpServer,
-		smtpPort,
+		verify.Emails.EmailSetting.SMTPServer,
+		verify.Emails.EmailSetting.SMTPPort,
 		verify.Emails.EmailSetting.Login,
 		verify.Emails.EmailSetting.Password,
 	)
