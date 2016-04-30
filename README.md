@@ -2,12 +2,12 @@
 ---
 ```yaml
 email_settings:
-  login: secret_email@yandex.ru
-  password: "*********"
+  login: email login
+  password: "password"
+  smtp_server: smtp.yandex.ru
+  smtp_port: 465
 email_list:
   - dmitryd.prog@gmail.com
-  - example2@mail.ru
-  - ...
 paths:
   -
     path: "%[y]/%[m]/%[-1d]/secret_path"
