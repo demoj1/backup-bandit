@@ -1,0 +1,26 @@
+email_settings:
+  login: email login
+  password: "password"
+  smtp_server: smtp.yandex.ru
+  smtp_port: 465
+email_list:
+  - dmitryd.prog@gmail.com
+paths:
+  -
+    path: "%[y]/%[m]/%[-1d]/secret_path"
+    files:
+      -
+        name: "secret_path2[.]bak"
+        min_valid_size: 30 MB
+      -
+        name: "secret_path3[.]bak"
+        min_valid_size: 200 MB
+  -
+    path: "%[y]/%[m]/%[d]/secret_path4"
+    files:
+      -
+        name: ".*_secret_path4[.]tar"
+        min_valid_size: 600 MB
+  -
+    path: "%[y]/%[m]/%[d]/secret_path5/docs"
+    min_valid_size: 600 MB
