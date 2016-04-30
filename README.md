@@ -45,7 +45,6 @@ paths:
 tools:
   -
     path: /usr/bin/discus
-    wait_time: 500
     args: -c
     groups:
       - mount
@@ -55,7 +54,7 @@ tools:
       - prcnt
       - graph
     regex: >-
-        (?P<mount>\/.*?)\s+
+        (?P<mount>\/)\s+
         (?P<total>\d+[.]?\d* \w+[B])\s+
         (?P<used>\d+[.]?\d* \w+[B])\s+
         (?P<avail>\d+[.]?\d* \w+[B])\s+
@@ -72,6 +71,10 @@ tools:
         (?P<up>.*),\s*
         (?P<users>\d+) users,\s*load average:
         (?P<avr>.*\d)
+  -
+    path: /usr/bin/find
+    wait_time: 5000
+    args: /home/dmr/ -name "del_*" -delete
 ```
 `path` - путь до исполняемого файла.
 
