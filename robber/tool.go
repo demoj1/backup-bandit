@@ -2,9 +2,11 @@ package robber
 
 import (
 	"bytes"
+	"os"
 	"os/exec"
 	"regexp"
 	"strings"
+	"time"
 )
 
 // Tool ...
@@ -13,16 +15,35 @@ type Tool struct {
 	Args   string
 	Groups []string
 	Regex  string
+	Time   int `yaml:"wait_time,omitempty"`
 }
 
 // ParseOut run tool and parse std out
 // to compliance with regular expession.
 func (t *Tool) ParseOut() (m [][]string, err error) {
+	if t.Time == 0 {
+		t.Time = 100
+	}
+
 	c := exec.Command(t.Path, strings.Split(t.Args, " ")...)
+
 	var out bytes.Buffer
 	c.Stdout = &out
-	e := c.Run()
+
+	e := c.Start()
+
+	waitTimer := time.NewTimer(time.Millisecond * time.Duration(t.Time))
+	go func(timer *time.Timer, c *exec.Cmd) {
+		<-timer.C
+		err := c.Process.Signal(os.Kill)
+
+		if err == nil {
+			timer.Stop()
+		}
+	}(waitTimer, c)
+
 	c.Wait()
+	waitTimer.Stop()
 
 	reg := regexp.MustCompile(t.Regex)
 	findAll := reg.FindAllStringSubmatch(out.String(), -1)
