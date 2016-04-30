@@ -31,6 +31,16 @@ func CreateHtmlReport() {
 
 	allLog := make(map[string]string)
 
+	defer func() {
+		if r := recover(); r != nil {
+			tpl.Execute(f, struct {
+				Critical []string
+			}{
+				Critical: []string{"Global error, recover func: " + r.(error).Error()},
+			})
+		}
+	}()
+
 	verify.InitSet("")
 	for _, v := range verify.Set {
 		tmpMap := verify.Verify(v)
@@ -52,7 +62,7 @@ func CreateHtmlReport() {
 	}{
 		Date:     time.Now().Format("2006-01-02 15:04"),
 		Critical: critical(allLog),
-		Error:    error(allLog),
+		Error:    errorf(allLog),
 		Warning:  warning(allLog),
 		Success:  ok(allLog),
 		Tools:    robber.Set.Tools,
@@ -68,7 +78,7 @@ func CreateHtmlReport() {
 		"%v C:%v/E:%v/W:%v/S:%v",
 		time.Now().Format("2006-01-02 15:04"),
 		len(critical(allLog))-1,
-		len(error(allLog))-1,
+		len(errorf(allLog))-1,
 		len(warning(allLog))-1,
 		len(ok(allLog))-1,
 	)
@@ -107,7 +117,7 @@ func critical(m map[string]string) []string {
 	})
 }
 
-func error(m map[string]string) []string {
+func errorf(m map[string]string) []string {
 	return filterMap(m, func(k string, v string) bool {
 		return strings.HasPrefix(k, verify.ErrorLabel)
 	})
