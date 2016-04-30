@@ -1,8 +1,10 @@
 package robber
 
 import (
+	"bytes"
 	"os/exec"
 	"regexp"
+	"strings"
 )
 
 // Tool ...
@@ -16,31 +18,14 @@ type Tool struct {
 // ParseOut run tool and parse std out
 // to compliance with regular expession.
 func (t *Tool) ParseOut() (m [][]string, err error) {
-	o, e := exec.Command(t.Path, t.Args).Output()
-	if e != nil {
-		m = nil
-		err = e
-		return
-	}
+	c := exec.Command(t.Path, strings.Split(t.Args, " ")...)
+	var out bytes.Buffer
+	c.Stdout = &out
+	e := c.Run()
+	c.Wait()
 
-	out := string(o)
-
-	reg, e := regexp.Compile(t.Regex)
-	if e != nil {
-		m = nil
-		err = e
-		return
-	}
-
-	findAll := reg.FindAllStringSubmatch(out, -1)
-
-	defer func() {
-		if r := recover(); r != nil {
-			m = nil
-			err = r.(error)
-			return
-		}
-	}()
+	reg := regexp.MustCompile(t.Regex)
+	findAll := reg.FindAllStringSubmatch(out.String(), -1)
 
 	var res [][]string
 	for i, f := range findAll {
@@ -52,6 +37,11 @@ func (t *Tool) ParseOut() (m [][]string, err error) {
 	}
 
 	m = res
+
+	if e != nil {
+		m = append(m, []string{"std err: " + e.Error()})
+	}
+
 	err = nil
 	return
 }
