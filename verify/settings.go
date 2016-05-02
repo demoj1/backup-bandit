@@ -28,6 +28,7 @@ type emailSettings struct {
 	Password   string
 	SMTPServer string `yaml:"smtp_server"`
 	SMTPPort   int    `yaml:"smtp_port"`
+	EmailList  []string
 }
 
 type emailList []string
@@ -39,7 +40,7 @@ type settings struct {
 }
 
 var Set []PathVerifyInfo
-var Emails settings
+var Emails emailSettings
 
 // InitSet load settings from file to Set.
 func InitSet(path string) {
@@ -55,7 +56,8 @@ func InitSet(path string) {
 	var set settings
 	err = yaml.Unmarshal(f, &set)
 
-	Emails = set
+	Emails = set.EmailSetting
+	Emails.EmailList = set.EmailList
 
 	if err != nil {
 		log.Fatal(err.Error())
