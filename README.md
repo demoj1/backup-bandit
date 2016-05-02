@@ -1,5 +1,4 @@
 ## Пример файла конфигурации config.yaml
----
 ```yaml
 email_settings:
   login: email login
@@ -40,7 +39,6 @@ paths:
   * GB
 
 ## Файл конфигурации для сбора логов robber.yaml
----
 ```yaml
 tools:
   -
