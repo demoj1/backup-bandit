@@ -93,16 +93,16 @@ func CreateHtmlReport() {
 
 func sendEmail(msg []byte, to []string, title string) {
 	m := gomail.NewMessage()
-	m.SetHeader("From", verify.Emails.EmailSetting.Login)
+	m.SetHeader("From", verify.Emails.Login)
 	m.SetHeader("To", to...)
 	m.SetHeader("Subject", title)
 	m.SetBody("text/html", string(msg))
 
 	d := gomail.NewDialer(
-		verify.Emails.EmailSetting.SMTPServer,
-		verify.Emails.EmailSetting.SMTPPort,
-		verify.Emails.EmailSetting.Login,
-		verify.Emails.EmailSetting.Password,
+		verify.Emails.SMTPServer,
+		verify.Emails.SMTPPort,
+		verify.Emails.Login,
+		verify.Emails.Password,
 	)
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
