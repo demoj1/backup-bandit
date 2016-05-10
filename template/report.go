@@ -7,68 +7,6 @@ const Report string = `<html style="font-family: monospace;">
       <title>Back up bandit report</title>
    </head>
    <body>
-      <style type="text/css">
-          html {
-              font-family: monospace;
-          }
-
-          table td tr h1 h2 h3 h4 h5 {
-              margin: 0px;
-              padding: 0px;
-          }
-
-          .rad {
-              border-radius: 3px;
-              padding: 3px;
-          }
-
-          h1 {
-              margin-left: 5px;
-          }
-
-          h2 {
-              margin-left: 15px;
-          }
-
-          h2 {
-              margin-left: 25px;
-          }
-
-          h3 {
-              margin-left: 35px;
-          }
-
-          table {
-              align-content: left;
-              text-align: left;
-              border-collapse: collapse;
-          }
-
-          .critical {
-              background-color: #212121;
-              color: white;
-          }
-
-          .error {
-              background-color: #FF3D00;
-              color: white;
-          }
-
-          .warning {
-              background-color: #FF9100;
-              color: white;
-          }
-
-          .success {
-              background-color: #689F38;
-              color: white;
-          }
-
-          .tools {
-              background-color: #1565C0;
-              color: white;
-          }
-      </style>
       <table width="100%" style="align-content: left;text-align: left;border-collapse: collapse;">
          <tr>
             <td>
