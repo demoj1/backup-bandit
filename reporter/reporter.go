@@ -18,7 +18,7 @@ import (
 	tpl "github.com/diman3241/backupbandit/template"
 )
 
-func CreateHtmlReport() {
+func CreateHtmlReport(verifyPath, robberPath string) {
 	tpl, err := template.New("report").Parse(tpl.Report)
 	if err != nil {
 		panic(err)
@@ -41,7 +41,7 @@ func CreateHtmlReport() {
 		}
 	}()
 
-	verify.InitSet("")
+	verify.InitSet(verifyPath)
 	for _, v := range verify.Set {
 		tmpMap := verify.Verify(v)
 
@@ -50,7 +50,7 @@ func CreateHtmlReport() {
 		}
 	}
 
-	robber.InitSet("")
+	robber.InitSet(robberPath)
 
 	err = tpl.Execute(f, struct {
 		Date     string
