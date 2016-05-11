@@ -12,7 +12,7 @@ import (
 // Tool ...
 type Tool struct {
 	Path   string
-	Args   string `yaml:"omitempty"`
+	Args   string
 	Groups []string
 	Regex  string
 	Time   int `yaml:"wait_time,omitempty"`
