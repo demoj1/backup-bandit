@@ -1,3 +1,11 @@
+## Возможные аргументы
+```
+  -robber string
+    	Path to robber config file.
+  -verify string
+    	Path to verify config file.
+```
+
 ## Пример файла конфигурации config.yaml
 ```yaml
 email_settings:
