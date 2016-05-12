@@ -75,7 +75,7 @@ tools:
     regex: >-
         up
         (?P<up>.*),\s*
-        (?P<users>\d+) users,\s*load average:
+        (?P<users>\d+) user.*,\s*load average:
         (?P<avr>.*\d)
   -
     path: /usr/bin/find
